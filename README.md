@@ -40,3 +40,45 @@ npm start
 - Documentation for the the added compilerOptions in tsconfig.app.json: https://github.com/openzipkin/zipkin-js#typescript
 - Another option is using https://github.com/ewhauser/angular-tracing
 
+### To enable the proxy on cloud foundry:
+We need to setup a custom port for Zipkin. We already replaced the default 2878 port with 443 when pushing the proxy to the platform, but we need another port for Zipkin. We'll use the default 9411.
+
+- see https://docs.cloudfoundry.org/devguide/custom-ports.html
+
+Replace GUIDs below with your own GUIDs
+```
+cf app wavefront-proxy --guid
+cf curl /v2/apps/<APP-GUID> -X PUT -d '{"ports": [8080, 9411]}'
+cf curl /v2/routes
+```
+Find the route with `path-route=/api/v2/spans`. Save the `guid` field, which represents the route guid. For example, here it is `56f3d9d7-6dc0-4f2b-9b3e-64ffcb1b3338`
+```
+         "metadata": {
+            "guid": "56f3d9d7-6dc0-4f2b-9b3e-64ffcb1b3338",
+            "url": "/v2/routes/56f3d9d7-6dc0-4f2b-9b3e-64ffcb1b3338",
+            "created_at": "2020-07-14T17:10:08Z",
+            "updated_at": "2020-07-14T17:10:08Z"
+         },
+         "entity": {
+            "host": "wavefront-angular-tracing-demo",
+            "path": "/api/v2/spans",
+            "domain_guid": "f5e568ca-4905-4b83-9423-ca5749decc38",
+            "space_guid": "777ff632-2285-4b98-8a47-c52faced1e45",
+            "service_instance_guid": null,
+            "port": null,
+            "domain_url": "/v2/shared_domains/f5e568ca-4905-4b83-9423-ca5749decc38",
+            "space_url": "/v2/spaces/777ff632-2285-4b98-8a47-c52faced1e45",
+            "apps_url": "/v2/routes/56f3d9d7-6dc0-4f2b-9b3e-64ffcb1b3338/apps",
+            "route_mappings_url": "/v2/routes/56f3d9d7-6dc0-4f2b-9b3e-64ffcb1b3338/route_mappings"
+         }
+      },
+
+```
+Run:
+```
+cf curl /v2/routes/ROUTE-GUID/route_mappings
+cf curl /v2/route_mappings -X POST -d '{"app_guid": "<APP-GUID>", "route_guid": "<ROUTE-GUID>", "app_port": 9411}'
+```
+
+
+

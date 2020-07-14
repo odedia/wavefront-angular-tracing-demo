@@ -11,6 +11,6 @@ export class AppService {
   }
 
   sendRequest(): Observable<string> {
-    return this.httpClient.get('http://localhost:8080/hello', {responseType: 'text' as 'text'});
+    return this.httpClient.get('https://' + window.location.hostname +'/api/hello', {responseType: 'text' as 'text'});
   }
 }

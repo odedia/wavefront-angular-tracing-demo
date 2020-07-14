@@ -1,0 +1,8 @@
+---
+applications:
+  - name: wavefront-angular-tracing-demo-api
+    path: ./target/wavefront-angular-tracing-demo-api-0.0.1-SNAPSHOT.jar
+    routes:
+    - route: wavefront-angular-tracing-demo.apps.pcfone.io/api
+     env:
+      JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ }}'

@@ -6,7 +6,7 @@ applications:
       image: wavefronthq/proxy:latest
     env:
       WAVEFRONT_URL: https://longboard.wavefront.com/api/
-      WAVEFRONT_TOKEN: 9f23c656-78c5-443b-b225-127a3f0a73d1
+      WAVEFRONT_TOKEN: <replace-me>
       JAVA_HEAP_USAGE: 512m
       WAVEFRONT_PROXY_ARGS: "--traceZipkinListenerPorts 9411 --traceZipkinApplicationName=wavefront-angular-tracing-demo --pushListenerPorts=8080"
     routes:

@@ -8,9 +8,9 @@ applications:
       WAVEFRONT_URL: https://longboard.wavefront.com/api/
       WAVEFRONT_TOKEN: <replace-me>
       JAVA_HEAP_USAGE: 512m
-      WAVEFRONT_PROXY_ARGS: "--traceZipkinListenerPorts 9411 --traceZipkinApplicationName=wavefront-angular-tracing-demo --pushListenerPorts=8080"
+      WAVEFRONT_PROXY_ARGS: "--traceZipkinListenerPorts 9411 --traceZipkinApplicationName wavefront-angular-tracing-demo --pushListenerPorts 8080"
     routes:
-    - route: wavefront-proxy.apps.pcfone.io
-    - route: wavefront-angular-tracing-demo.apps.pcfone.io/api/v2/spans
+    - route: wavefront-proxy.<domain>
+    - route: wavefront-angular-tracing-demo.<domain>/api/v2/spans
 
  

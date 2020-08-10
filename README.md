@@ -20,18 +20,24 @@ docker run -d \
 ```
 
 ### Start the applications
-1. Start the API
+1. Replace all occurences of <replace-me> with the IP of your Wavefront proxy.
+2. Start the API
 ```
 cd wavefront-angular-tracing-demo-api
 ./mvnw spring-boot:run
 ```
-2. Start the UI
+3. Start the UI
 ```
 cd wavefront-angular-tracing-demo-ui
 npm start
 ```
-3. Open your browser **with disabled CORS** on http://localhost:4200/. To start for example a Chrome isntance with disabled CORS on macOS run `open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security`
+4. Open your browser **with disabled CORS** on http://localhost:4200/. To start for example a Chrome isntance with disabled CORS on macOS run `open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security`
 
+Note: you can now deploy a Wavefront proxy with CORS origin disabled for certain sources, which is probably a more realistic scenrio for production environments. Provide the following parameters to Wavefront proxy:
+
+```
+--corsEnabledPorts 9411,2878 --corsOrigin http://<domain-one>,http://<domain-two> (etc.)
+```
 
 ### Additional information
 - API `wavefront-spring-boot-starter` dependency documentation: https://docs.wavefront.com/wavefront_springboot.html

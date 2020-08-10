@@ -3,4 +3,4 @@ applications:
   - name: wavefront-angular-tracing-demo-ui
     path: ./dist/wavefront-angular-tracing-demo-ui
     routes:
-    - route: wavefront-angular-tracing-demo.apps.pcfone.io
+    - route: wavefront-angular-tracing-demo.<domain>
